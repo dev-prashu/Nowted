@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-black text-white;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px; /* Adjust width */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: black; /* Makes scrollbar black */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent; /* Makes track transparent */
+}
+
+@layer utilities {
+  .min-h-900 {
+    min-height: 900px;
+  }
+}
