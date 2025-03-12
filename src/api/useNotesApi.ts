@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useCallback, useContext, useState } from "react";
 import { NoteContext } from "../context/NoteContext";
+import { pageParam } from "../types/pageParam";
 
 const API_URL: string = "https://nowted-server.remotestate.com";
 
@@ -43,11 +44,11 @@ export function useNotesApi() {
   }, []);
 
   //Fetch Notes API
-  const fetchNotes = useCallback(async () => {
+  const fetchNotes = useCallback(async (params: pageParam) => {
     setLoading(true);
     try {
-      const response = await axios.get(`${API_URL}/notes?limit=100`);
-      setNotes(response.data.notes);
+      const response = await axios.get(`${API_URL}/notes`, { params });
+      return response.data.notes;
     } catch (err) {
       setError(err as Error);
     } finally {
@@ -69,17 +70,20 @@ export function useNotesApi() {
   }, []);
 
   //Delete Notes By Id
-  const deleteNoteById = useCallback(async (id: string) => {
-    setLoading(true);
-    try {
-      await axios.delete(`${API_URL}/notes/${id}`);
-      context?.setIsChange((prev) => !prev);
-    } catch (err) {
-      setError(err as Error);
-    } finally {
-      setLoading(false);
-    }
-  }, [context]);
+  const deleteNoteById = useCallback(
+    async (id: string) => {
+      setLoading(true);
+      try {
+        await axios.delete(`${API_URL}/notes/${id}`);
+        context?.setIsChange((prev) => !prev);
+      } catch (err) {
+        setError(err as Error);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [context]
+  );
 
   //Create Notes
   const createNote = useCallback(async (note: Partial<Note>) => {
@@ -110,11 +114,42 @@ export function useNotesApi() {
     [context]
   );
 
-  //Get Favorites Notes
-  const fetchFavorites = useCallback(async () => {
+  //Restore Deleted Notes
+  const restoreNote = useCallback(
+    async (id: string) => {
+      setLoading(true);
+      try {
+        await axios.post(`${API_URL}/notes/${id}/restore`);
+        context?.setIsChange((prev) => !prev);
+      } catch (err) {
+        setError(err as Error);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [context]
+  );
+
+  //Search Query
+  const searchQuery = useCallback(async (query: string) => {
     setLoading(true);
     try {
-      const response = await axios.get(`${API_URL}/notes?favorite=true`);
+      const response = await axios.get(`${API_URL}/notes?search=${query}`);
+      setNotes(response.data.notes);
+    } catch (err) {
+      setError(err as Error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  //Get Favorites Notes
+  const fetchFavorites = useCallback(async (params: pageParam) => {
+    setLoading(true);
+    try {
+      const response = await axios.get(`${API_URL}/notes?favorite=true`, {
+        params,
+      });
       setNotes(response.data.notes);
     } catch (err) {
       setError(err as Error);
@@ -124,10 +159,12 @@ export function useNotesApi() {
   }, []);
 
   //Get Archived Notes
-  const fetchArchived = useCallback(async () => {
+  const fetchArchived = useCallback(async (params: pageParam) => {
     setLoading(true);
     try {
-      const response = await axios.get(`${API_URL}/notes?archived=true`);
+      const response = await axios.get(`${API_URL}/notes?archived=true`, {
+        params,
+      });
       setNotes(response.data.notes);
     } catch (err) {
       setError(err as Error);
@@ -137,36 +174,12 @@ export function useNotesApi() {
   }, []);
 
   //Get Deleted Notes
-  const fetchDeleted = useCallback(async () => {
+  const fetchDeleted = useCallback(async (params: pageParam) => {
     setLoading(true);
     try {
-      const response = await axios.get(`${API_URL}/notes?deleted=true`);
-      setNotes(response.data.notes);
-    } catch (err) {
-      setError(err as Error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  //Restore Deleted Notes
-  const restoreNote = useCallback(async (id: string) => {
-    setLoading(true);
-    try {
-      await axios.post(`${API_URL}/notes/${id}/restore`);
-      context?.setIsChange(prev=>!prev);
-    } catch (err) {
-      setError(err as Error);
-    } finally {
-      setLoading(false);
-    }
-  }, [context]);
-
-  //Search Query
-  const searchQuery = useCallback(async (query: string) => {
-    setLoading(true);
-    try {
-      const response = await axios.get(`${API_URL}/notes?search=${query}`);
+      const response = await axios.get(`${API_URL}/notes?deleted=true`, {
+        params,
+      });
       setNotes(response.data.notes);
     } catch (err) {
       setError(err as Error);

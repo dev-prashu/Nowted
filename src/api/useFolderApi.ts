@@ -66,7 +66,7 @@ export function useFolderApi() {
     } finally {
       setLoading(false);
     }
-  }, [fetchFolders]);
+  }, [fetchFolders,context]);
 
   //Delete Folder By Id
   const deleteFolder = useCallback(async (id: string) => {

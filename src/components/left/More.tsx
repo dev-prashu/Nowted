@@ -7,7 +7,7 @@ export const More = () => {
     <div className="flex flex-col pt-5">
       <h1 className="text-gray-500 font-semibold pb-1">More</h1>
       <NavLink
-        to={`/favorites/:${true}`}
+        to={`/:${true}`}
         className="flex gap-4 pt-3 pb-3 pl-5 pr-5"
       >
         <img src={star} alt="" />

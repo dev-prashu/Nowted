@@ -39,7 +39,7 @@ const Dropdown = ({
       updateNote(noteid!, updatedNote);
       setNote(updatedNote);
       if(isFavorite){
-        navigate(`/favorites/${isFavorite}`);
+        navigate(`/${isFavorite}`);
       }
     }
   };

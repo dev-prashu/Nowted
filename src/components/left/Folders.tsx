@@ -37,7 +37,7 @@ export const Folders: React.FC = () => {
   };
 
   const handleSaveEdit = (folderId: string, newName: string) => {
-    console.log("Updated Folder");
+ 
     updateFolder(folderId, newName);
     setEditFolderId(null);
     setFolderName(null);

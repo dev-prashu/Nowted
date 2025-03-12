@@ -17,8 +17,8 @@ const router = createBrowserRouter(
       <Route path="/folder/:folderId" element={<Home />}>
         <Route path="/folder/:folderId/notes/:noteid" element={<Home />} />
       </Route>
-      <Route path="/favorites/:isFavorite" element={<Home />} />
-      <Route path="/favorites/:isFavorite/notes/:noteid" element={<Home />} />
+      <Route path="/:isFavorite" element={<Home />} />
+      <Route path="/:isFavorite/notes/:noteid" element={<Home />} />
       <Route path="/archive/:isArchived" element={<Home />} />
       <Route path="/archive/:isArchived/notes/:noteid" element={<Home />} />
       <Route path="/trash/:isDeleted" element={<Home />} />
