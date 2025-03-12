@@ -1,5 +1,6 @@
 import axios from "axios";
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
+import { NoteContext } from "../context/NoteContext";
 
 const API_URL: string = "https://nowted-server.remotestate.com";
 
@@ -15,6 +16,7 @@ export function useFolderApi() {
   const [folders, setFolders] = useState<Folder[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
+  const context=useContext(NoteContext);
 
   //Fetch Folders API
   const fetchFolders = useCallback(async () => {
@@ -58,6 +60,7 @@ export function useFolderApi() {
         )
       );
       fetchFolders();
+      context?.setIsChange(prev=>!prev);
     } catch (err) {
       setError(err as Error);
     } finally {

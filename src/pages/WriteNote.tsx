@@ -1,4 +1,4 @@
-import { NewNote } from "../components/NewNote";
+import { NewNote } from "../components/right/NewNote";
 
 export const WriteNote = () => {
     return (

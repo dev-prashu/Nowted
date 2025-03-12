@@ -1,17 +1,19 @@
 import React from "react";
 import { Outlet } from "react-router";
-import { Navbar } from "./components/Navbar";
-import { SubFolder } from "./components/SubFolder";
+import { Navbar } from "./components/left/Navbar";
+import { SubFolder } from "./components/middle/SubFolder";
+import { NoteContextProvider } from "./context/NoteContextProvider";
 
 export const Layout: React.FC = () => {
   return (
     <>
-      <div className="flex">
-      <Navbar/>
-      <SubFolder/>
-      <Outlet />
-      </div>
-      
+      <NoteContextProvider>
+        <div className="flex h-screen">
+          <Navbar />
+          <SubFolder />
+          <Outlet />
+        </div>
+      </NoteContextProvider>
     </>
   );
 };

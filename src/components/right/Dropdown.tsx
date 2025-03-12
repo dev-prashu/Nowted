@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import option from "../assets/options.png";
-import bin from "../assets/whitebin.png";
-import fav from "../assets/whiteStar.png";
-import archive from "../assets/whitearchive.png";
+import option from "../../assets/options.png";
+import bin from "../../assets/whitebin.png";
+import fav from "../../assets/whiteStar.png";
+import archive from "../../assets/whitearchive.png";
 import { useNavigate, useParams } from "react-router";
-import { Note, useNotesApi } from "../api/useNotesApi";
+import { Note, useNotesApi } from "../../api/useNotesApi";
 
 const Dropdown = ({
   setIsDeleted,
@@ -13,9 +13,10 @@ const Dropdown = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { fetchNoteById, deleteNoteById, updateNote } = useNotesApi();
-  const { noteid } = useParams();
+  const { noteid,isFavorite,folderId,isArchived } = useParams();
   const [note, setNote] = useState<Note>();
-  const navigate = useNavigate();
+  const navigate=useNavigate();
+
 
   useEffect(() => {
     const fetchNote = async () => {
@@ -37,6 +38,9 @@ const Dropdown = ({
       const updatedNote = { ...note, isFavorite: !note.isFavorite };
       updateNote(noteid!, updatedNote);
       setNote(updatedNote);
+      if(isFavorite){
+        navigate(`/favorites/${isFavorite}`);
+      }
     }
   };
 
@@ -45,7 +49,11 @@ const Dropdown = ({
       const updatedNote = { ...note, isArchived: !note.isArchived };
       updateNote(noteid!, updatedNote);
       setNote(updatedNote);
-      navigate(`/archive/${true}`);
+
+      if(folderId){
+        navigate(`/folder/${folderId}`);
+      }else if(isArchived)
+        navigate(`/archive/${isArchived}`)
     }
   };
 

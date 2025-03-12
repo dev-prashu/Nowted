@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router";
-import addFolderIcon from "../assets/addFoldericon.png";
-import closeIcon from "../assets/closeFolder.png";
-import openIcon from "../assets/openFolderIcon.png";
-import { useFolderApi } from "../api/useFolderApi";
-import deleteIcon from "../assets/deleteIcon.png";
+import addFolderIcon from "../../assets/addFoldericon.png";
+import closeIcon from "../../assets/closeFolder.png";
+import openIcon from "../../assets/openFolderIcon.png";
+import { useFolderApi } from "../../api/useFolderApi";
+import deleteIcon from "../../assets/deleteIcon.png";
 
 export const Folders: React.FC = () => {
   const {
@@ -115,7 +115,9 @@ export const Folders: React.FC = () => {
                       <img
                         src={deleteIcon}
                         alt=""
-                        onClick={() => deleteFolder(folder.id)}
+                        onClick={() => {
+                          deleteFolder(folder.id);
+                        }}
                       />
                     </div>
                   </div>

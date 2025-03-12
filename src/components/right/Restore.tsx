@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router";
-import clock from "../assets/clock.png";
-import { Note, useNotesApi } from "../api/useNotesApi";
+import clock from "../../assets/clock.png";
+import { Note, useNotesApi } from "../../api/useNotesApi";
 import { useEffect, useState } from "react";
 
 

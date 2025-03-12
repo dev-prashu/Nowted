@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
-import { Empty } from "../components/Empty";
-import { ShowNote } from "../components/ShowNote";
+import { Empty } from "../components/right/Empty";
+import { ShowNote } from "../components/right/ShowNote";
 
 function Home() {
 

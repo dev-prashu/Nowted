@@ -1,7 +1,7 @@
 import { useParams } from "react-router";
-import calenderIcon from "../assets/calendarIcon.png";
-import folderIcon from "../assets/folderIcon.png";
-import { Folder, useFolderApi } from "../api/useFolderApi";
+import calenderIcon from "../../assets/calendarIcon.png";
+import folderIcon from "../../assets/folderIcon.png";
+import { Folder, useFolderApi } from "../../api/useFolderApi";
 import { useEffect } from "react";
 
 export const NewNote = () => {
@@ -10,9 +10,7 @@ export const NewNote = () => {
   
 
   const folder  = folders.filter((f:Folder) => f.id === folderId)[0];
-  if(folder){
-    console.log(folder.name);
-  }
+ 
   useEffect(() => {
     fetchFolders();
   },[fetchFolders]);

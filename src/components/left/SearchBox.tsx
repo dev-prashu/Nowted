@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNotesApi } from "../api/useNotesApi";
+import { useNotesApi } from "../../api/useNotesApi";
 import { useNavigate } from "react-router";
 
 function SearchBox() {

@@ -1,21 +1,23 @@
-import searchIcon from "../assets/searchIcon.png";
-import logo from "../assets/logo.png";
+import searchIcon from "../../assets/searchIcon.png";
+import logo from "../../assets/logo.png";
 import { useNavigate, useParams } from "react-router";
-import { useNotesApi } from "../api/useNotesApi";
-import { Note } from "../api/useNotesApi";
-import { useState } from "react";
-import SearchBox from "./SearchBox";
+import { Note } from "../../api/useNotesApi";
+import { useContext, useState } from "react";
+import SearchBox from "../left/SearchBox";
+import { useNotesApi } from "../../api/useNotesApi";
+import { NoteContext } from "../../context/NoteContext";
 
 const AddSearchBar = () => {
   const { folderId, isFavorite, isArchive, isDeleted } = useParams();
   const { createNote } = useNotesApi();
   const navigate = useNavigate();
   const [isSearch, setIsSearch] = useState<boolean>(false);
+  const context=useContext(NoteContext);
   const handleCreateNewNote = async () => {
     const newNote: Partial<Note> = {
       folderId: folderId!,
-      title: "",
-      content: "",
+      title: "Untitled Note",
+      content: "No Content to Show!!",
       isFavorite: false,
       isArchived: false,
     };
@@ -23,6 +25,7 @@ const AddSearchBar = () => {
       alert("Select any folder to create");
     } else {
       const id = await createNote(newNote);
+      context?.setIsChange(prev=>!prev);
       navigate(`/folder/${folderId}/notes/${id}`);
     }
   };

@@ -1,9 +1,10 @@
 import { useParams } from "react-router";
-import { useNotesApi } from "../api/useNotesApi";
-import { useEffect } from "react";
+import { useNotesApi } from "../../api/useNotesApi";
+import { useContext, useEffect } from "react";
 import { NavLink } from "react-router";
+import { NoteContext } from "../../context/NoteContext";
 
-export const SubFolder = () => {
+export const NoteList = () => {
   const { folderId, isFavorite, isArchived, isDeleted } = useParams();
   const {
     notes,
@@ -13,13 +14,13 @@ export const SubFolder = () => {
     fetchArchived,
     fetchDeleted,
   } = useNotesApi();
+  const context = useContext(NoteContext);
 
   useEffect(() => {
     if (isFavorite) {
       fetchFavorites();
     } else if (isArchived) {
       fetchArchived();
-      console.log(isArchived);
     } else if (isDeleted) {
       fetchDeleted();
     } else {
@@ -33,6 +34,7 @@ export const SubFolder = () => {
     isDeleted,
     isFavorite,
     isArchived,
+    context?.change,
   ]);
 
   if (loading) {
@@ -45,10 +47,10 @@ export const SubFolder = () => {
 
   return (
     <>
-      <div className="bg-lightBlack pl-5 pr-8 pt-8 w-1/4 flex flex-col gap-5 overflow-y-scroll custom-scrollbar h-screen">
+      <div>
         {filteredNotes.length > 0 ? (
           <>
-            <h1 className="font-semibold text-2xl">
+            <h1 className="font-semibold text-2xl pb-4">
               {isFavorite
                 ? "Favorites"
                 : isArchived
@@ -57,8 +59,9 @@ export const SubFolder = () => {
                 ? "Trash"
                 : filteredNotes[0].folder.name}
             </h1>
+              
 
-            {filteredNotes.map((note) => (
+           <div className="flex flex-col gap-4"> {filteredNotes.map((note) => (
               <NavLink
                 key={note.id}
                 to={
@@ -72,9 +75,9 @@ export const SubFolder = () => {
                 }
                 className="border-2 rounded-sm block"
               >
-                <h1 className="font-semibold p-5 text-xl">{note.title}</h1>
+                <h1 className="font-semibold p-2 text-xl">{note.title}</h1>
 
-                <div className="flex justify-between p-5 pb-5">
+                <div className="flex justify-between p-2">
                   <h1 className="text-gray-400 w-1/2 font-medium text-lg">
                     {Intl.DateTimeFormat("en-GB").format(
                       new Date(note.createdAt)
@@ -86,10 +89,10 @@ export const SubFolder = () => {
                   </p>
                 </div>
               </NavLink>
-            ))}
+            ))}</div>
           </>
         ) : (
-          <h1 className="text-gray-400 font-medium text-lg">
+          <h1 className="text-gray-400  font-medium text-lg flex flex-col justify-center items-center">
             Nothing to show here
           </h1>
         )}

@@ -1,11 +1,12 @@
 import { useParams } from "react-router";
-import { Note, useNotesApi } from "../api/useNotesApi";
+import { Note, useNotesApi } from "../../api/useNotesApi";
 import { useEffect, useState, useRef } from "react";
 
-import calenderIcon from "../assets/calendarIcon.png";
-import folderIcon from "../assets/folderIcon.png";
-import Dropdown from "./Dropdown";
-import Restore from "./Restore";
+import calenderIcon from "../../assets/calendarIcon.png";
+import folderIcon from "../../assets/folderIcon.png";
+import Dropdown from "../right/Dropdown";
+import Restore from "../right/Restore";
+import { FolderDropdown } from "./FolderDropdown";
 
 export const ShowNote = () => {
   const { noteid } = useParams();
@@ -18,8 +19,8 @@ export const ShowNote = () => {
   const [isDeleted, setIsDeleted] = useState<boolean>(
     note?.deletedAt ? true : false
   );
+  
 
-  console.log(isDeleted);
   useEffect(() => {
     if (noteid) {
       fetchNoteById(noteid).then((data) => {
@@ -40,6 +41,7 @@ export const ShowNote = () => {
 
     debounceTimer.current = setTimeout(() => {
       updateNote(noteid!, { title: updatedTitle, content: updatedContent });
+      //context?.setIsChange(prev=>!prev);
     }, 2000);
   };
 
@@ -48,7 +50,7 @@ export const ShowNote = () => {
   return (
     <>
       {note! ? (
-        <div className="w-1/2">
+        <div className="w-1/2 flex flex-col h-screen">
           <div className="flex items-center justify-between p-10  ">
             <input
               type="text"
@@ -59,7 +61,7 @@ export const ShowNote = () => {
             />
             <Dropdown setIsDeleted={setIsDeleted} />
           </div>
-          <div className=" flex justify-between items-center w-full pl-10 p-5">
+          <div className=" flex justify-between items-center  pl-10 p-5">
             <div className="flex justify-between items-center w-1/8 gap-5  ">
               <img src={calenderIcon} alt="" />
               <h1 className="text-gray-400 text-lg">Date</h1>
@@ -68,17 +70,17 @@ export const ShowNote = () => {
               </h1>
             </div>
           </div>
-          <div className=" flex justify-between items-center w-full pl-10 p-5 ">
-            <div className="flex justify-betwefetchNotes();en items-center w-1/8 gap-5">
+          <div className=" flex justify-between items-center  pl-10 p-5 ">
+            <div className=" flex justify-between items-center w-1/8 gap-5">
               <img src={folderIcon} alt="" />
               <h1 className=" text-gray-400 text-lg">Folder</h1>
-              <h1 className="text-white text-lg ">
-                {note.folder.name}
+              <h1 className="relative text-white text-lg ">
+                <FolderDropdown  folderName={note.folder.name}/>
               </h1>
             </div>
           </div>
           <textarea
-            className="p-10 w-full min-h-900  text-white bg-black text-2xl font-medium focus:outline-none "
+            className="p-10  text-white bg-black h-screen text-2xl font-medium focus:outline-none overflow-y-auto custom-scrollbar "
             rows={10}
             value={content}
             onChange={(e) => handleUpdate(title, e.target.value)}

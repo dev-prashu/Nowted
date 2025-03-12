@@ -1,6 +1,6 @@
-import star from "../assets/starIcon.png";
-import archive from "../assets/archiveIcon.png";
-import deleteIcon from "../assets/deleteIcon.png";
+import star from "../../assets/starIcon.png";
+import archive from "../../assets/archiveIcon.png";
+import deleteIcon from "../../assets/deleteIcon.png";
 import { NavLink } from "react-router";
 export const More = () => {
   return (

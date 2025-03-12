@@ -1,6 +1,5 @@
-import React from "react";
-import Icon from "../assets/DocumentIcon.png";
-export const Empty: React.FC = () => {
+import Icon from "../../assets/DocumentIcon.png";
+export const Empty = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen w-1/2 gap-4">
       <img src={Icon} alt="" />
