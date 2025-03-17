@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import docicon from "../../assets/docicon.png";
 import { NavLink } from "react-router";
 
-import { useNotesApi } from "../../api/useNotesApi";
+import {  useNotesApi } from "../../api/useNotesApi";
 
 export const Recents: React.FC = () => {
   const { notes, loading, fetchRecentNotes } = useNotesApi();

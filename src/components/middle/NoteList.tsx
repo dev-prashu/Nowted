@@ -9,7 +9,6 @@ export const NoteList = () => {
   const { folderId, isFavorite, isArchived, isDeleted } = useParams();
   const { loading, fetchNotes } = useNotesApi();
   const context = useContext(NoteContext);
-
   const [notes, setNotes] = useState<Note[]>([]);
   const [page, setPage] = useState<number>(1);
   const [hasMore, setHasMore] = useState<boolean>(false);
@@ -84,7 +83,7 @@ export const NoteList = () => {
               : notes[0]?.folder?.name || "Notes"}
           </h1>
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 h-fit">
             {notes.map((note) => (
               <NavLink
                 key={note.id}
@@ -97,7 +96,7 @@ export const NoteList = () => {
                     ? `/trash/${isDeleted}/notes/${note.id}`
                     : `/folder/${folderId}/notes/${note.id}`
                 }
-                className="border-2 rounded-sm block"
+                className="border-2 rounded-lg h-40 flex flex-col justify-between p-2"
               >
                 <h1 className="font-semibold p-2 text-xl">{note.title}</h1>
 
@@ -108,7 +107,7 @@ export const NoteList = () => {
                     )}
                   </h1>
 
-                  <p className="text-gray-400 text-right w-1/2 font-medium text-lg">
+                  <p className="text-gray-400 text-right w-1/2 font-medium text-lg overflow-hidden text-ellipsis truncate">
                     {note.preview}...
                   </p>
                 </div>

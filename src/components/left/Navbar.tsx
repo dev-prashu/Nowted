@@ -7,7 +7,7 @@ import { Folders } from './Folders'
 
 export const Navbar : React.FC = () => {
     return (
-       <div className='w-1/4 p-6 h-screen bg-navBlack'>
+       <div className='flex flex-col w-1/4 p-6 h-full bg-navBlack  overflow-y-auto custom-scrollbar'>
         <AddSearchBar/>
         <Recents/>
         <Folders/>

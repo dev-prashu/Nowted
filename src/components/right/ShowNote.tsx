@@ -19,7 +19,6 @@ export const ShowNote = () => {
   const [isDeleted, setIsDeleted] = useState<boolean>(
     note?.deletedAt ? true : false
   );
-  
 
   useEffect(() => {
     if (noteid) {
@@ -50,7 +49,7 @@ export const ShowNote = () => {
   return (
     <>
       {note! ? (
-        <div className="w-1/2 flex flex-col h-screen">
+        <div className="w-1/2 flex flex-col h-full">
           <div className="flex items-center justify-between p-10  ">
             <input
               type="text"
@@ -74,13 +73,13 @@ export const ShowNote = () => {
             <div className=" flex justify-between items-center w-1/8 gap-5">
               <img src={folderIcon} alt="" />
               <h1 className=" text-gray-400 text-lg">Folder</h1>
-              <h1 className="relative text-white text-lg ">
-                <FolderDropdown  folderName={note.folder.name}/>
-              </h1>
+              <span className="relative text-white text-lg ">
+                <FolderDropdown folderName={note.folder.name} />
+              </span>
             </div>
           </div>
           <textarea
-            className="p-10  text-white bg-black h-screen text-2xl font-medium focus:outline-none overflow-y-auto custom-scrollbar "
+            className="p-10  text-white bg-black h-full text-2xl font-medium focus:outline-none overflow-y-auto custom-scrollbar "
             rows={10}
             value={content}
             onChange={(e) => handleUpdate(title, e.target.value)}

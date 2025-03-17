@@ -13,10 +13,9 @@ const Dropdown = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { fetchNoteById, deleteNoteById, updateNote } = useNotesApi();
-  const { noteid,isFavorite,folderId,isArchived } = useParams();
+  const { noteid, folderId, isArchived } = useParams();
   const [note, setNote] = useState<Note>();
-  const navigate=useNavigate();
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchNote = async () => {
@@ -38,9 +37,6 @@ const Dropdown = ({
       const updatedNote = { ...note, isFavorite: !note.isFavorite };
       updateNote(noteid!, updatedNote);
       setNote(updatedNote);
-      if(isFavorite){
-        navigate(`/${isFavorite}`);
-      }
     }
   };
 
@@ -49,11 +45,9 @@ const Dropdown = ({
       const updatedNote = { ...note, isArchived: !note.isArchived };
       updateNote(noteid!, updatedNote);
       setNote(updatedNote);
-
-      if(folderId){
+      if (folderId) {
         navigate(`/folder/${folderId}`);
-      }else if(isArchived)
-        navigate(`/archive/${isArchived}`)
+      } else if (isArchived) navigate(`/archive/${isArchived}`);
     }
   };
 

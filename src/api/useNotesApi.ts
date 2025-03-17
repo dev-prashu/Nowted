@@ -69,22 +69,6 @@ export function useNotesApi() {
     }
   }, []);
 
-  //Delete Notes By Id
-  const deleteNoteById = useCallback(
-    async (id: string) => {
-      setLoading(true);
-      try {
-        await axios.delete(`${API_URL}/notes/${id}`);
-        context?.setIsChange((prev) => !prev);
-      } catch (err) {
-        setError(err as Error);
-      } finally {
-        setLoading(false);
-      }
-    },
-    [context]
-  );
-
   //Create Notes
   const createNote = useCallback(async (note: Partial<Note>) => {
     setLoading(true);
@@ -98,12 +82,28 @@ export function useNotesApi() {
     }
   }, []);
 
-  //Patch Notes By Id
+  //Update Notes By Id
   const updateNote = useCallback(
     async (id: string, note: Partial<Note>) => {
       setLoading(true);
       try {
         await axios.patch<Note>(`${API_URL}/notes/${id}`, note);
+        context?.setIsChange((prev) => !prev);
+      } catch (err) {
+        setError(err as Error);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [context]
+  );
+
+  //Delete Notes By Id
+  const deleteNoteById = useCallback(
+    async (id: string) => {
+      setLoading(true);
+      try {
+        await axios.delete(`${API_URL}/notes/${id}`);
         context?.setIsChange((prev) => !prev);
       } catch (err) {
         setError(err as Error);
@@ -143,51 +143,6 @@ export function useNotesApi() {
     }
   }, []);
 
-  //Get Favorites Notes
-  const fetchFavorites = useCallback(async (params: pageParam) => {
-    setLoading(true);
-    try {
-      const response = await axios.get(`${API_URL}/notes?favorite=true`, {
-        params,
-      });
-      setNotes(response.data.notes);
-    } catch (err) {
-      setError(err as Error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  //Get Archived Notes
-  const fetchArchived = useCallback(async (params: pageParam) => {
-    setLoading(true);
-    try {
-      const response = await axios.get(`${API_URL}/notes?archived=true`, {
-        params,
-      });
-      setNotes(response.data.notes);
-    } catch (err) {
-      setError(err as Error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  //Get Deleted Notes
-  const fetchDeleted = useCallback(async (params: pageParam) => {
-    setLoading(true);
-    try {
-      const response = await axios.get(`${API_URL}/notes?deleted=true`, {
-        params,
-      });
-      setNotes(response.data.notes);
-    } catch (err) {
-      setError(err as Error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
   return {
     notes,
     loading,
@@ -198,9 +153,6 @@ export function useNotesApi() {
     deleteNoteById,
     createNote,
     updateNote,
-    fetchFavorites,
-    fetchArchived,
-    fetchDeleted,
     restoreNote,
     searchQuery,
   };
