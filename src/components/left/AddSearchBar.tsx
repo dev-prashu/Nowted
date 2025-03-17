@@ -32,7 +32,7 @@ const AddSearchBar = () => {
 
   return (
     <>
-      <div className="">
+      <div>
         <div className="flex justify-between items-center">
           <img src={logo} alt="Logo" />
           <img

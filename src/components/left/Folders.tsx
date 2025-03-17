@@ -37,7 +37,6 @@ export const Folders: React.FC = () => {
   };
 
   const handleSaveEdit = (folderId: string, newName: string) => {
- 
     updateFolder(folderId, newName);
     setEditFolderId(null);
     setFolderName(null);
@@ -48,7 +47,7 @@ export const Folders: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col pt-5">
+    <div className="flex flex-col pt-5 overflow-y-auto gap-4">
       <div className="flex justify-between pr-7">
         <h1 className="font-semibold text-gray-500">Folders</h1>
         <img
@@ -76,7 +75,7 @@ export const Folders: React.FC = () => {
         />
       )}
 
-      <ul className="overflow-y-scroll custom-scrollbar h-96 pt-2">
+      <ul className="overflow-y-auto custom-scrollbar h-full pt-2">
         {folders.map((folder) => (
           <li key={folder.id} className="list-none">
             {editFolderId === folder.id ? (

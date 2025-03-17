@@ -18,6 +18,8 @@ export const NoteList = () => {
   });
 
   useEffect(() => {
+    if (!isFavorite && !isArchived && !isDeleted && !folderId) return;
+
     const fetchInitialNotes = async () => {
       const params: pageParam = {
         page: 1,

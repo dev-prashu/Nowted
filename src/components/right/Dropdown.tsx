@@ -13,7 +13,7 @@ const Dropdown = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { fetchNoteById, deleteNoteById, updateNote } = useNotesApi();
-  const { noteid, folderId, isArchived } = useParams();
+  const { noteid, folderId, isArchived, isFavorite } = useParams();
   const [note, setNote] = useState<Note>();
   const navigate = useNavigate();
 
@@ -37,6 +37,9 @@ const Dropdown = ({
       const updatedNote = { ...note, isFavorite: !note.isFavorite };
       updateNote(noteid!, updatedNote);
       setNote(updatedNote);
+      if (isFavorite) {
+        navigate(`/${isFavorite}`);
+      }
     }
   };
 
@@ -61,10 +64,10 @@ const Dropdown = ({
       />
 
       {isOpen && (
-        <div className="absolute right-3 w-40 z-10 border rounded-md shadow-lg">
-          <ul className="p-1">
+        <div className="absolute right-3 w-40 rounded-lg">
+          <ul className="p-1 bg-navBlack">
             <li
-              className="flex p-3 pl-5 gap-4 items-center  hover:bg-blue-400 cursor-pointer"
+              className="flex p-3 pl-5 gap-4  items-center  hover:bg-blue-400 cursor-pointer"
               onClick={handleDelete}
             >
               <img src={bin} alt="" />

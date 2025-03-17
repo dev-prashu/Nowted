@@ -11,18 +11,18 @@ export const More = () => {
         className="flex gap-4 pt-3 pb-3 pl-5 pr-5"
       >
         <img src={star} alt="" />
-        <p className="font-semibold text-gray-500">Favorites</p>
+        <p className="font-semibold text-gray-500 hover:text-yellow-400">Favorites</p>
       </NavLink>
       <NavLink to={`/trash/${true}`} className="flex gap-4 pt-3 pb-3 pl-5 pr-5">
         <img src={deleteIcon} alt="" />
-        <p className="font-semibold text-gray-500">Trash</p>
+        <p className="font-semibold text-gray-500 hover:text-red-600">Trash</p>
       </NavLink>
       <NavLink
         to={`/archive/:${true}`}
         className="flex gap-4 pt-3 pb-3 pl-5 pr-5 "
       >
         <img src={archive} alt="" />
-        <p className="font-semibold text-gray-500">Archived Notes</p>
+        <p className="font-semibold text-gray-500 hover:text-white">Archived Notes</p>
       </NavLink>
     </div>
   );
